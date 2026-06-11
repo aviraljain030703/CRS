@@ -1,0 +1,192 @@
+version: "3.9"
+
+# ========================================================================
+# Campus Grievance Hub - Production Docker Compose Configuration
+# ========================================================================
+#
+# Usage:
+#   docker-compose -f docker-compose.production.yml up -d
+#   docker-compose -f docker-compose.production.yml --env-file .env.production up -d
+#
+# Note: Update .env.production with your production values before deploying
+#
+# ========================================================================
+
+services:
+  # ── MySQL Database ────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: cms_mysql_prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-cms_db}
+      MYSQL_USER: ${MYSQL_USER:-cms_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./my-prod.cnf:/etc/mysql/conf.d/my-prod.cnf:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - cms_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 1G
+
+  # ── Flask Application ─────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cms_app_prod
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: ${FLASK_ENV:-production}
+      FLASK_DEBUG: ${FLASK_DEBUG:-false}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      CMS_DATABASE_URL: ${CMS_DATABASE_URL:-mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}}
+      SEED_DB: ${SEED_DB:-false}
+      PORT: ${PORT:-5000}
+      MAIL_SERVER: ${MAIL_SERVER:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-true}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://yourdomain.com}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "${PORT:-5000}:${PORT:-5000}"
+    volumes:
+      - uploads_data:/app/app/static/uploads
+      - app_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT:-5000}/api/meta"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - cms_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "1.0"
+          memory: 1G
+
+  # ── Nginx Reverse Proxy (Optional) ─────────────────────────────────────
+  nginx:
+    image: nginx:latest
+    container_name: cms_nginx_prod
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx_cache:/var/cache/nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/meta"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - cms_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+volumes:
+  mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/mysql
+  uploads_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/uploads
+  app_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/logs
+  nginx_cache:
+    driver: local
+
+networks:
+  cms_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# ========================================================================
+# Environment Variables Reference
+# ========================================================================
+#
+# FLASK_ENV              - Set to 'production'
+# FLASK_DEBUG            - Set to 'false'
+# SECRET_KEY             - Generate: python -c "import secrets; print(secrets.token_hex(32))"
+# JWT_SECRET_KEY         - Generate: python -c "import secrets; print(secrets.token_hex(32))"
+# CMS_DATABASE_URL       - MySQL connection string
+# MYSQL_ROOT_PASSWORD    - Strong password for MySQL root
+# MYSQL_USER             - Database user (cms_user)
+# MYSQL_PASSWORD         - Database user password
+# MYSQL_DATABASE         - Database name (cms_db)
+# SEED_DB                - Set to 'false' after first deployment
+# MAIL_SERVER            - SMTP server (e.g., smtp.gmail.com)
+# MAIL_PORT              - SMTP port (e.g., 587)
+# MAIL_USERNAME          - Email address for notifications
+# MAIL_PASSWORD          - Email password or app-specific password
+# SESSION_COOKIE_SECURE  - Set to 'true' (enables secure cookies)
+# CORS_ORIGINS           - Production domain (e.g., https://yourdomain.com)
+# LOG_LEVEL              - Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+#
+# ========================================================================

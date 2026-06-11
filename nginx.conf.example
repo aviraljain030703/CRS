@@ -1,0 +1,210 @@
+# ========================================================================
+# Nginx Configuration for Campus Grievance Hub
+# ========================================================================
+#
+# This is a production-ready Nginx configuration that:
+# - Acts as reverse proxy for Flask/Gunicorn
+# - Handles SSL/TLS termination
+# - Implements security headers
+# - Handles gzip compression
+# - Sets up caching
+#
+# Installation:
+#   1. Copy this file to /etc/nginx/sites-available/campus-grievance-hub
+#   2. Create symlink: sudo ln -s /etc/nginx/sites-available/campus-grievance-hub /etc/nginx/sites-enabled/
+#   3. Test config: sudo nginx -t
+#   4. Reload: sudo systemctl reload nginx
+#
+# ========================================================================
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    # Let's Encrypt ACME challenge
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    # Redirect all other traffic to HTTPS
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+
+# HTTPS Server
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name yourdomain.com www.yourdomain.com;
+
+    # SSL Certificate Configuration
+    # Using Let's Encrypt (Certbot recommended)
+    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+
+    # SSL Configuration
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    # HSTS (HTTP Strict Transport Security)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+
+    # Content Security Policy (CSP)
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data:; connect-src 'self';" always;
+
+    # Gzip Compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/javascript application/json;
+    gzip_disable "MSIE [1-6]\.";
+
+    # Logging
+    access_log /var/log/nginx/campus-grievance-hub-access.log combined;
+    error_log /var/log/nginx/campus-grievance-hub-error.log warn;
+
+    # Rate limiting zones
+    limit_req_zone $binary_remote_addr zone=general:10m rate=10r/s;
+    limit_req_zone $binary_remote_addr zone=auth:10m rate=5r/m;
+    limit_req_zone $binary_remote_addr zone=api:10m rate=30r/m;
+
+    # Root location
+    location / {
+        limit_req zone=general burst=20 nodelay;
+        
+        # Proxy settings
+        proxy_pass http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_set_header X-Forwarded-Port $server_port;
+        
+        # Timeouts
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+        
+        # Buffering
+        proxy_buffering on;
+        proxy_buffer_size 4k;
+        proxy_buffers 8 4k;
+        proxy_busy_buffers_size 8k;
+    }
+
+    # API endpoints with stricter rate limiting
+    location /api/ {
+        limit_req zone=api burst=10 nodelay;
+        
+        proxy_pass http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # Add CORS headers for API
+        add_header Access-Control-Allow-Origin "https://yourdomain.com" always;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;
+        
+        # Handle preflight requests
+        if ($request_method = 'OPTIONS') {
+            return 204;
+        }
+    }
+
+    # Authentication endpoints with stricter rate limiting
+    location /auth/ {
+        limit_req zone=auth burst=5 nodelay;
+        
+        proxy_pass http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Static files with caching
+    location /static/ {
+        alias /path/to/app/static/;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Disable access to hidden files
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # Deny access to common vulnerability locations
+    location ~ ~$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ \.sql$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # Health check endpoint (no rate limit, no logging)
+    location /api/meta {
+        proxy_pass http://127.0.0.1:5000;
+        access_log off;
+    }
+}
+
+# Upstream configuration (optional for multiple app instances)
+upstream flask_app {
+    server 127.0.0.1:5000;
+    server 127.0.0.1:5001;
+    server 127.0.0.1:5002;
+    # Add more instances as needed
+}
+
+# ========================================================================
+# Docker Compose Nginx Service Example
+# ========================================================================
+#
+# Add this to docker-compose.yml to use Nginx with Docker:
+#
+# services:
+#   nginx:
+#     image: nginx:latest
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     volumes:
+#       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+#       - ./ssl:/etc/nginx/ssl:ro
+#       - ./certbot/conf:/etc/letsencrypt:ro
+#     depends_on:
+#       - app
+#     networks:
+#       - default
+#
+# ========================================================================
