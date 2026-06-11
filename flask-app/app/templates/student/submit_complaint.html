@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Submit Complaint{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+  <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2 text-primary"></i>Submit a Complaint</h4>
+  <p class="text-muted mb-0">Fill in the details below. All fields marked <span class="text-danger">*</span> are required.</p>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <form method="POST" action="{{ url_for('complaints.submit_complaint') }}"
+              enctype="multipart/form-data" novalidate>
+
+          <!-- Title -->
+          <div class="mb-3">
+            <label class="form-label fw-medium">
+              Complaint Title <span class="text-danger">*</span>
+            </label>
+            <input type="text" name="title" class="form-control"
+                   value="{{ form_data.get('title','') }}"
+                   placeholder="Brief description of the issue" required minlength="5"/>
+          </div>
+
+          <!-- Category + Priority -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-medium">Category <span class="text-danger">*</span></label>
+              <select name="category" class="form-select" required>
+                {% for cat in categories %}
+                <option value="{{ cat }}"
+                  {% if form_data.get('category')==cat or (loop.first and not form_data.get('category')) %}selected{% endif %}>
+                  {{ cat }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-medium">Priority <span class="text-danger">*</span></label>
+              <select name="priority" class="form-select" required>
+                {% for p in priorities %}
+                <option value="{{ p }}"
+                  {% if form_data.get('priority')==p or (loop.first and not form_data.get('priority')) %}selected{% endif %}>
+                  {{ p }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label class="form-label fw-medium">
+              Detailed Description <span class="text-danger">*</span>
+            </label>
+            <textarea name="description" class="form-control" rows="5"
+                      placeholder="Describe the issue in detail (minimum 10 characters)"
+                      required minlength="10">{{ form_data.get('description','') }}</textarea>
+            <div class="form-text text-end" id="charCount">0 characters</div>
+          </div>
+
+          <!-- Attachment -->
+          <div class="mb-4">
+            <label class="form-label fw-medium">Attachment (optional)</label>
+            <input type="file" name="attachment" class="form-control"
+                   accept=".png,.jpg,.jpeg,.gif,.pdf,.doc,.docx"/>
+            <div class="form-text">Allowed: PNG, JPG, GIF, PDF, DOC, DOCX — max 16 MB</div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary px-4 fw-semibold">
+              <i class="bi bi-send me-2"></i>Submit Complaint
+            </button>
+            <a href="{{ url_for('complaints.dashboard') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const textarea = document.querySelector('textarea[name="description"]');
+const counter  = document.getElementById('charCount');
+textarea.addEventListener('input', () => {
+  counter.textContent = textarea.value.length + ' characters';
+});
+</script>
+{% endblock %}

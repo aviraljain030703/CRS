@@ -1,0 +1,466 @@
+2026-06-10 18:23:08,941 [INFO] app: Flask app created with config: development
+2026-06-10 18:23:08,997 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:23:08,998 [ERROR] app.utils.seed: Seeding failed: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2435, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/util.py", line 122, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1440, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1585, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'complaints'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/workspace/flask-app/app/utils/seed.py", line 53, in seed_database
+    if User.query.first():
+       ^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 277, in __init__
+    self._set_entities(entities)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    self._raw_columns = [
+                        ^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 290, in <listcomp>
+    coercions.expect(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/coercions.py", line 389, in expect
+    insp._post_inspect
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1234, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2734, in _post_inspect
+    self._check_configure()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2411, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4228, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4269, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2428, in _post_configure_properties
+    prop.init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 595, in init
+    self.do_init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1658, in do_init
+    self._setup_join_conditions()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1896, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2322, in __init__
+    self._determine_joins()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2479, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2026-06-10 18:23:09,002 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:23:09,064 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.24.0.2:5000
+2026-06-10 18:23:09,064 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-06-10 18:23:09,068 [INFO] werkzeug:  * Restarting with stat
+2026-06-10 18:23:09,458 [INFO] app: Flask app created with config: development
+2026-06-10 18:23:09,459 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:23:09,460 [ERROR] app.utils.seed: Seeding failed: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2435, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/util.py", line 122, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1440, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1585, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'complaints'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/workspace/flask-app/app/utils/seed.py", line 53, in seed_database
+    if User.query.first():
+       ^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 277, in __init__
+    self._set_entities(entities)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    self._raw_columns = [
+                        ^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 290, in <listcomp>
+    coercions.expect(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/coercions.py", line 389, in expect
+    insp._post_inspect
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1234, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2734, in _post_inspect
+    self._check_configure()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2411, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4228, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4269, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2428, in _post_configure_properties
+    prop.init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 595, in init
+    self.do_init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1658, in do_init
+    self._setup_join_conditions()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1896, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2322, in __init__
+    self._determine_joins()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2479, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2026-06-10 18:23:09,464 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:23:09,475 [WARNING] werkzeug:  * Debugger is active!
+2026-06-10 18:23:09,475 [INFO] werkzeug:  * Debugger PIN: 565-590-882
+2026-06-10 18:23:11,221 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:23:11,247 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+2026-06-10 18:23:11,263 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-06-10 18:23:11,268 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-06-10 18:23:11,323 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "GET /login?__debugger__=yes&cmd=resource&f=console.png&s=wR0WrjjUb6HkISNV1hyj HTTP/1.1" 200 -
+2026-06-10 18:23:11,334 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:23:11] "GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-06-10 18:24:29,828 [INFO] app: Flask app created with config: development
+2026-06-10 18:24:29,829 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:24:29,830 [ERROR] app.utils.seed: Seeding failed: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2435, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/util.py", line 122, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1440, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1585, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'complaints'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/workspace/flask-app/app/utils/seed.py", line 53, in seed_database
+    if User.query.first():
+       ^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 277, in __init__
+    self._set_entities(entities)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    self._raw_columns = [
+                        ^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 290, in <listcomp>
+    coercions.expect(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/coercions.py", line 389, in expect
+    insp._post_inspect
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1234, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2734, in _post_inspect
+    self._check_configure()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2411, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4228, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4269, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2428, in _post_configure_properties
+    prop.init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 595, in init
+    self.do_init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1658, in do_init
+    self._setup_join_conditions()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1896, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2322, in __init__
+    self._determine_joins()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2479, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2026-06-10 18:24:29,835 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:24:29,848 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.24.0.2:5000
+2026-06-10 18:24:29,848 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-06-10 18:24:29,849 [INFO] werkzeug:  * Restarting with stat
+2026-06-10 18:24:30,251 [INFO] app: Flask app created with config: development
+2026-06-10 18:24:30,253 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:24:30,253 [ERROR] app.utils.seed: Seeding failed: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2435, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/util.py", line 122, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1440, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1585, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'complaints'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/workspace/flask-app/app/utils/seed.py", line 53, in seed_database
+    if User.query.first():
+       ^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 277, in __init__
+    self._set_entities(entities)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    self._raw_columns = [
+                        ^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 290, in <listcomp>
+    coercions.expect(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/coercions.py", line 389, in expect
+    insp._post_inspect
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1234, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2734, in _post_inspect
+    self._check_configure()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2411, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4228, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4269, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2428, in _post_configure_properties
+    prop.init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 595, in init
+    self.do_init()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1658, in do_init
+    self._setup_join_conditions()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1896, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2322, in __init__
+    self._determine_joins()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2479, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.complaints - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2026-06-10 18:24:30,257 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:24:30,269 [WARNING] werkzeug:  * Debugger is active!
+2026-06-10 18:24:30,269 [INFO] werkzeug:  * Debugger PIN: 109-234-224
+2026-06-10 18:24:30,288 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:24:30] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:24:30,482 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:24:30] "GET /login HTTP/1.1" 200 -
+2026-06-10 18:24:30,934 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:24:30] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-06-10 18:24:31,137 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:24:31] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-06-10 18:24:58,679 [INFO] werkzeug:  * Detected change in '/home/runner/workspace/flask-app/app/models/user.py', reloading
+2026-06-10 18:24:58,766 [INFO] werkzeug:  * Restarting with stat
+2026-06-10 18:24:59,172 [INFO] app: Flask app created with config: development
+2026-06-10 18:24:59,174 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:24:59,185 [INFO] app.utils.seed: Seeding database with sample data â€¦
+2026-06-10 18:25:02,392 [INFO] app.utils.seed: Database seeded successfully.
+2026-06-10 18:25:02,392 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:25:02,404 [WARNING] werkzeug:  * Debugger is active!
+2026-06-10 18:25:02,405 [INFO] werkzeug:  * Debugger PIN: 109-234-224
+2026-06-10 18:25:04,533 [INFO] app: Flask app created with config: development
+2026-06-10 18:25:04,535 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:25:04,548 [INFO] app.utils.seed: Database already seeded â€” skipping.
+2026-06-10 18:25:04,548 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:25:04,563 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.24.0.2:5000
+2026-06-10 18:25:04,563 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-06-10 18:25:04,563 [INFO] werkzeug:  * Restarting with stat
+2026-06-10 18:25:04,971 [INFO] app: Flask app created with config: development
+2026-06-10 18:25:04,973 [INFO] __main__: Database tables created / verified.
+2026-06-10 18:25:04,985 [INFO] app.utils.seed: Database already seeded â€” skipping.
+2026-06-10 18:25:04,985 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-10 18:25:04,996 [WARNING] werkzeug:  * Debugger is active!
+2026-06-10 18:25:04,996 [INFO] werkzeug:  * Debugger PIN: 113-878-961
+2026-06-10 18:25:05,013 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:25:05] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:25:05,148 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:25:05] "GET /login HTTP/1.1" 200 -
+2026-06-10 18:25:05,806 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:25:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:25:06,035 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:25:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:25:44,116 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:25:44] "GET /login HTTP/1.1" 200 -
+2026-06-10 18:26:31,523 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:26:31] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:26:31,594 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:26:31] "GET /login HTTP/1.1" 200 -
+2026-06-10 18:27:59,991 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:27:59] "POST /login HTTP/1.1" 200 -
+2026-06-10 18:28:00,233 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:28:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:28:00,835 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:28:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:28:03,554 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:28:03] "GET /register HTTP/1.1" 200 -
+2026-06-10 18:28:03,729 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:28:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:28:03,731 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:28:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:30:27,655 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:30:27] "GET /login HTTP/1.1" 200 -
+2026-06-10 18:30:27,853 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:30:27] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:30:27,856 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:30:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:31:02,039 [INFO] app.routes.auth: User student1@college.edu logged in.
+2026-06-10 18:31:02,040 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:02] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-06-10 18:31:02,635 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:02] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:31:02,880 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:31:02,902 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:02] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:31:21,301 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:21] "GET /student/notifications HTTP/1.1" 200 -
+2026-06-10 18:31:21,588 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:21] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:31:21,599 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:31:21] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:32:52,315 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:32:52] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:32:52,400 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:32:52] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:32:52,508 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:32:52] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:32:52,528 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:32:52] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:36:02,165 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:36:02] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:36:02,324 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:36:02] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-06-10 18:36:02,325 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:36:02] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-06-10 18:36:03,860 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:36:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-10 18:39:14,702 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:39:14] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:39:14,767 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:39:14] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:39:14,897 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:39:14] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:39:14,948 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:39:14] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:40:30,731 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:40:30] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:40:30,927 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:40:30] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:40:31,279 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:40:31] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:40:31,474 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:40:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 18:41:47,075 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:41:47] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 18:41:47,211 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:41:47] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 18:41:47,646 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:41:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 18:41:47,788 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 18:41:47] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-10 19:01:44,367 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 19:01:44] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-10 19:01:44,481 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 19:01:44] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-10 19:01:44,733 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 19:01:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-10 19:01:44,791 [INFO] werkzeug: 127.0.0.1 - - [10/Jun/2026 19:01:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:07:49,050 [INFO] app: Flask app created with config: development
+2026-06-11 01:07:49,065 [INFO] __main__: Database tables created / verified.
+2026-06-11 01:07:49,087 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 01:07:49,087 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 01:07:49,156 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.92.105.96:5000
+2026-06-11 01:07:49,157 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-06-11 01:07:49,158 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 01:07:50,377 [INFO] app: Flask app created with config: development
+2026-06-11 01:07:50,381 [INFO] __main__: Database tables created / verified.
+2026-06-11 01:07:50,407 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 01:07:50,409 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 01:07:50,443 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 01:07:50,455 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 01:08:03,262 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:08:03] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-11 01:08:03,553 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:08:03] "GET /login HTTP/1.1" 200 -
+2026-06-11 01:08:05,856 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:08:05] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-06-11 01:08:06,039 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:08:06] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-06-11 01:09:54,845 [INFO] app.routes.auth: User student1@college.edu logged in.
+2026-06-11 01:09:54,848 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:09:54] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-06-11 01:09:54,941 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:09:54] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-11 01:09:55,297 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:09:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:09:55,298 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:09:55] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:03,539 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:03] "GET /student/complaints/new HTTP/1.1" 200 -
+2026-06-11 01:10:03,919 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:10:03,921 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:09,073 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:09] "GET /student/complaints HTTP/1.1" 200 -
+2026-06-11 01:10:09,411 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:10:09,414 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:09] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:16,532 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:16] "GET /student/notifications HTTP/1.1" 200 -
+2026-06-11 01:10:16,878 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:16,881 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:16] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:10:21,327 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:21] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-11 01:10:21,679 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:21] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:21,680 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:21] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:10:23,296 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:23] "GET /student/complaints/new HTTP/1.1" 200 -
+2026-06-11 01:10:23,640 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:23] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:10:23,642 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:10:23] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:11:04,392 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:11:04] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-11 01:11:04,750 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:11:04] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:11:04,750 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:11:04] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:16:51,000 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:16:51] "GET /student/complaints/new HTTP/1.1" 200 -
+2026-06-11 01:16:51,250 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:16:51] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:16:51,347 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:16:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:29:26,770 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:26] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-11 01:29:27,028 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:27] "GET /login HTTP/1.1" 200 -
+2026-06-11 01:29:27,087 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:27] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-06-11 01:29:27,366 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:27] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-06-11 01:29:27,987 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-11 01:29:49,987 [INFO] app.routes.auth: User student1@college.edu logged in.
+2026-06-11 01:29:49,990 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-06-11 01:29:50,023 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:50] "GET /student/dashboard HTTP/1.1" 200 -
+2026-06-11 01:29:50,404 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:29:50,405 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:29:50] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 01:54:09,571 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:54:09] "GET /student/complaints/new HTTP/1.1" 200 -
+2026-06-11 01:54:09,817 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:54:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-06-11 01:54:09,892 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 01:54:09] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-06-11 20:34:41,104 [INFO] app: Flask app created with config: development
+2026-06-11 20:34:41,110 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:34:41,125 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:34:41,126 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:34:41,189 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.92.105.96:5000
+2026-06-11 20:34:41,189 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-06-11 20:34:41,190 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:34:41,931 [INFO] app: Flask app created with config: development
+2026-06-11 20:34:41,934 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:34:41,946 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:34:41,946 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:34:41,963 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:34:41,971 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:35:24,887 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 20:35:24] "[32mGET / HTTP/1.1[0m" 302 -
+2026-06-11 20:35:24,910 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 20:35:24] "GET /login HTTP/1.1" 200 -
+2026-06-11 20:35:25,044 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 20:35:25] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-06-11 20:35:25,045 [INFO] werkzeug: 127.0.0.1 - - [11/Jun/2026 20:35:25] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-06-11 20:41:12,928 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\config.py', reloading
+2026-06-11 20:41:13,040 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:13,769 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:13,773 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:13,781 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:13,782 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:13,800 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:13,808 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:41:14,856 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\config.py', reloading
+2026-06-11 20:41:15,003 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:15,603 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:15,605 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:15,619 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:15,619 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:15,632 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:15,637 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:41:18,721 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\config.py', reloading
+2026-06-11 20:41:18,848 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:19,451 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:19,454 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:19,466 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:19,466 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:19,478 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:19,485 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:41:24,599 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\config.py', reloading
+2026-06-11 20:41:24,708 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:25,342 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:25,344 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:25,353 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:25,354 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:25,367 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:25,372 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:41:34,531 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\__init__.py', reloading
+2026-06-11 20:41:34,616 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:35,227 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:35,229 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:35,238 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:35,239 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:35,251 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:35,257 [INFO] werkzeug:  * Debugger PIN: 103-446-237
+2026-06-11 20:41:37,322 [INFO] werkzeug:  * Detected change in 'C:\\Users\\Hardik\\Desktop\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\Campus-Grievance-Hub\\flask-app\\app\\__init__.py', reloading
+2026-06-11 20:41:37,450 [INFO] werkzeug:  * Restarting with stat
+2026-06-11 20:41:38,071 [INFO] app: Flask app created with config: development
+2026-06-11 20:41:38,074 [INFO] __main__: Database tables created / verified.
+2026-06-11 20:41:38,086 [INFO] app.utils.seed: Database already seeded — skipping.
+2026-06-11 20:41:38,087 [INFO] __main__: Starting Complaint Management System on port 5000
+2026-06-11 20:41:38,102 [WARNING] werkzeug:  * Debugger is active!
+2026-06-11 20:41:38,109 [INFO] werkzeug:  * Debugger PIN: 103-446-237

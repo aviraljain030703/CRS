@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card" style="max-width:520px">
+    <div class="text-center mb-4">
+      <div class="auth-icon mb-3">
+        <i class="bi bi-person-plus-fill"></i>
+      </div>
+      <h2 class="fw-bold mb-1">Create Account</h2>
+      <p class="text-muted">Join the College Complaint System</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} py-2">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label fw-medium">Full Name <span class="text-danger">*</span></label>
+          <input type="text" name="name" class="form-control"
+                 value="{{ form_data.get('name','') }}" placeholder="John Doe" required autofocus/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">Student ID</label>
+          <input type="text" name="student_id" class="form-control"
+                 value="{{ form_data.get('student_id','') }}" placeholder="CS2024001"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">Department</label>
+          <select name="department" class="form-select">
+            <option value="">-- Select --</option>
+            {% for dept in ['Computer Science','Mechanical','Civil','Electrical','Electronics','MBA','MCA','Other'] %}
+            <option value="{{ dept }}" {% if form_data.get('department')==dept %}selected{% endif %}>{{ dept }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-medium">Email <span class="text-danger">*</span></label>
+          <input type="email" name="email" class="form-control"
+                 value="{{ form_data.get('email','') }}" placeholder="you@college.edu" required/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">Phone</label>
+          <input type="tel" name="phone" class="form-control"
+                 value="{{ form_data.get('phone','') }}" placeholder="9876543210"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">Password <span class="text-danger">*</span></label>
+          <input type="password" name="password" class="form-control"
+                 placeholder="Min 6 characters" required/>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-medium">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" name="confirm_password" class="form-control"
+                 placeholder="Repeat password" required/>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+            <i class="bi bi-person-check me-2"></i>Register
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="text-center mt-3">
+      <span class="text-muted">Already have an account?</span>
+      <a href="{{ url_for('auth.login') }}" class="fw-semibold ms-1">Sign in</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

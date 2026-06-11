@@ -1,0 +1,265 @@
+/* =====================================================
+   College Complaint Management System — Custom Styles
+   ===================================================== */
+
+:root {
+  --cms-primary:    #4361ee;
+  --cms-secondary:  #3a0ca3;
+  --cms-surface:    #f8f9fd;
+  --cms-sidebar-bg: #1a237e;
+  --cms-sidebar-w:  240px;
+  --cms-topbar-h:   56px;
+  --radius:         0.75rem;
+  --shadow:         0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+}
+
+/* ---- Base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body.cms-body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--cms-surface);
+  color: #1a1a2e;
+  min-height: 100vh;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+.sidebar {
+  width: var(--cms-sidebar-w);
+  min-height: 100vh;
+  background: var(--cms-sidebar-bg);
+  color: #c5cae9;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  transition: width .25s ease;
+}
+
+.sidebar-brand { color: #fff !important; }
+.sidebar-brand i { color: #7c83fd; }
+.sidebar-divider { border-color: rgba(255,255,255,.12); margin: .5rem 0; }
+
+.sidebar .nav-link {
+  color: #9fa8da;
+  border-radius: .5rem;
+  padding: .55rem .75rem;
+  transition: all .18s ease;
+  font-size: .875rem;
+}
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.sidebar .nav-link.active { font-weight: 600; }
+
+/* User avatar in sidebar */
+.user-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .9rem;
+  flex-shrink: 0;
+}
+.user-avatar-sm {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--cms-primary);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .75rem;
+  flex-shrink: 0;
+}
+.badge-admin   { background: #f44336; color: #fff; padding: 2px 8px; border-radius: 12px; font-size: .7rem; }
+.badge-student { background: #4caf50; color: #fff; padding: 2px 8px; border-radius: 12px; font-size: .7rem; }
+
+/* =====================================================
+   TOP BAR
+   ===================================================== */
+.top-bar {
+  height: var(--cms-topbar-h);
+  background: #fff;
+  border-bottom: 1px solid #e8eaf6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+.main-content {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   PAGE HEADER
+   ===================================================== */
+.page-header h4 { color: #1a237e; }
+
+/* =====================================================
+   KPI CARDS
+   ===================================================== */
+.kpi-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--cms-primary);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+
+.kpi-icon {
+  width: 44px; height: 44px;
+  border-radius: .6rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.kpi-value { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+.kpi-label { font-size: .75rem; color: #6b7280; font-weight: 500; margin-top: 2px; }
+
+.kpi-primary { border-left-color: #4361ee; }
+.kpi-warning  { border-left-color: #fb8c00; }
+.kpi-info     { border-left-color: #0288d1; }
+.kpi-success  { border-left-color: #2e7d32; }
+.kpi-danger   { border-left-color: #c62828; }
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+.card { border-radius: var(--radius) !important; }
+.card-header { border-radius: var(--radius) var(--radius) 0 0 !important; }
+
+/* =====================================================
+   TABLES
+   ===================================================== */
+.table { font-size: .875rem; }
+.table th { font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; color: #6b7280; }
+.table tbody tr { transition: background .1s; }
+
+/* =====================================================
+   AUTH PAGES
+   ===================================================== */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a237e 0%, #4361ee 50%, #3a0ca3 100%);
+  padding: 2rem 1rem;
+}
+.auth-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.auth-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4361ee, #3a0ca3);
+  color: #fff;
+  font-size: 1.75rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+}
+.demo-hint { background: #f8f9fd; border-radius: .75rem; padding: 1rem; }
+.demo-cred-box {
+  background: #fff; border: 1px solid #e8eaf6; border-radius: .6rem;
+  padding: .75rem .5rem; cursor: pointer; transition: all .15s;
+}
+.demo-cred-box:hover { border-color: var(--cms-primary); background: #eef0fd; }
+.x-small { font-size: .72rem; }
+
+/* =====================================================
+   TIMELINE
+   ===================================================== */
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: #e8eaf6;
+}
+.timeline-item { position: relative; margin-bottom: 1.25rem; }
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: -1.5rem; top: 2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #fff; box-shadow: 0 0 0 2px currentColor;
+}
+.timeline-content { padding-left: .25rem; }
+
+/* =====================================================
+   COMPLAINT DETAIL
+   ===================================================== */
+.complaint-description {
+  background: #f8f9fd; border-radius: .6rem; padding: 1rem; color: #374151;
+  line-height: 1.7; white-space: pre-wrap;
+}
+.admin-response {
+  background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 0 .6rem .6rem 0;
+  padding: 1rem 1.25rem;
+}
+.detail-meta { display: flex; flex-direction: column; gap: 2px; }
+.detail-meta-label { font-size: .75rem; color: #6b7280; font-weight: 500; }
+.detail-meta-value { font-weight: 600; color: #1a1a2e; }
+
+/* =====================================================
+   NOTIFICATIONS
+   ===================================================== */
+.notif-card { border-radius: var(--radius) !important; }
+.notif-unread { background: #f0f4ff !important; }
+.notif-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.notif-icon-info    { background: #e3f2fd; color: #0288d1; }
+.notif-icon-success { background: #e8f5e9; color: #2e7d32; }
+.notif-icon-warning { background: #fff3e0; color: #fb8c00; }
+.notif-icon-danger  { background: #ffebee; color: #c62828; }
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+.empty-state {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 3rem;
+}
+.empty-state i { font-size: 3.5rem; color: #c5cae9; margin-bottom: .5rem; }
+.empty-state p  { color: #9fa8da; }
+
+/* =====================================================
+   MISC UTILITIES
+   ===================================================== */
+.form-control:focus, .form-select:focus {
+  border-color: var(--cms-primary);
+  box-shadow: 0 0 0 .2rem rgba(67,97,238,.15);
+}
+.btn-primary { background: var(--cms-primary); border-color: var(--cms-primary); }
+.btn-primary:hover { background: #3451d1; border-color: #3451d1; }
+.badge { font-weight: 500; }
+
+/* Responsive sidebar */
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: fixed; left: -var(--cms-sidebar-w); z-index: 200;
+    transform: translateX(-100%);
+  }
+  .sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,.25); }
+}

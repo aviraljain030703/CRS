@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+  <h4 class="fw-bold mb-1">
+    <i class="bi bi-house me-2 text-primary"></i>Student Dashboard
+  </h4>
+  <p class="text-muted mb-0">Welcome back, <strong>{{ current_user.name }}</strong></p>
+</div>
+
+<!-- KPI Cards -->
+<div class="row g-3 mb-4">
+  {% set kpis = [
+    ('Total', stats.total, 'bi-clipboard-data', 'primary', '#4361ee'),
+    ('Pending', stats.pending, 'bi-hourglass-split', 'warning', '#fb8c00'),
+    ('In Progress', stats.in_progress, 'bi-arrow-repeat', 'info', '#0288d1'),
+    ('Resolved', stats.resolved, 'bi-check-circle', 'success', '#2e7d32'),
+  ] %}
+  {% for label, count, icon, color, hex in kpis %}
+  <div class="col-6 col-xl-3">
+    <div class="kpi-card kpi-{{ color }}">
+      <div class="kpi-icon" style="background:{{ hex }}20; color:{{ hex }}">
+        <i class="{{ icon }}"></i>
+      </div>
+      <div>
+        <div class="kpi-value">{{ count }}</div>
+        <div class="kpi-label">{{ label }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Quick Actions + Recent Complaints -->
+<div class="row g-4">
+  <!-- Quick Actions -->
+  <div class="col-lg-4">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-header bg-white border-0 pb-0">
+        <h6 class="fw-bold mb-0"><i class="bi bi-lightning me-2 text-warning"></i>Quick Actions</h6>
+      </div>
+      <div class="card-body">
+        <div class="d-grid gap-2">
+          <a href="{{ url_for('complaints.submit_complaint') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>Submit New Complaint
+          </a>
+          <a href="{{ url_for('complaints.list_complaints') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-list-ul me-2"></i>View All Complaints
+          </a>
+          <a href="{{ url_for('complaints.notifications') }}" class="btn btn-outline-info">
+            <i class="bi bi-bell me-2"></i>Notifications
+            {% if unread_notifications > 0 %}
+              <span class="badge bg-danger ms-1">{{ unread_notifications }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Complaints -->
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+        <h6 class="fw-bold mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Complaints</h6>
+        <a href="{{ url_for('complaints.list_complaints') }}" class="btn btn-sm btn-outline-primary">View All</a>
+      </div>
+      <div class="card-body p-0">
+        {% if recent_complaints %}
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="ps-3">Ref #</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in recent_complaints %}
+              <tr>
+                <td class="ps-3">
+                  <a href="{{ url_for('complaints.view_complaint', complaint_id=c.id) }}"
+                     class="fw-semibold text-primary text-decoration-none">
+                    {{ c.complaint_number }}
+                  </a>
+                </td>
+                <td class="text-truncate" style="max-width:180px">{{ c.title }}</td>
+                <td><span class="badge bg-light text-dark">{{ c.category }}</span></td>
+                <td><span class="badge bg-{{ c.priority_badge }}">{{ c.priority }}</span></td>
+                <td><span class="badge bg-{{ c.status_badge }}">{{ c.status }}</span></td>
+                <td class="text-muted small">{{ c.created_at.strftime('%d %b') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state py-5">
+          <i class="bi bi-inbox"></i>
+          <p>No complaints yet</p>
+          <a href="{{ url_for('complaints.submit_complaint') }}" class="btn btn-sm btn-primary">Submit First Complaint</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

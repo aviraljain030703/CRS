@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Complaint {{ complaint.complaint_number }}{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+  <a href="{{ url_for('complaints.list_complaints') }}" class="btn btn-sm btn-outline-secondary mb-2">
+    <i class="bi bi-arrow-left me-1"></i>Back
+  </a>
+  <h4 class="fw-bold mb-1">Complaint Details</h4>
+  <p class="text-muted mb-0">Reference: <strong>{{ complaint.complaint_number }}</strong></p>
+</div>
+
+<div class="row g-4">
+  <!-- Main Detail Card -->
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center pt-3">
+        <h5 class="fw-bold mb-0">{{ complaint.title }}</h5>
+        <span class="badge bg-{{ complaint.status_badge }} fs-6">{{ complaint.status }}</span>
+      </div>
+      <div class="card-body">
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-md-3">
+            <div class="detail-meta">
+              <span class="detail-meta-label"><i class="bi bi-tag me-1"></i>Category</span>
+              <span class="detail-meta-value">{{ complaint.category }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="detail-meta">
+              <span class="detail-meta-label"><i class="bi bi-flag me-1"></i>Priority</span>
+              <span class="badge bg-{{ complaint.priority_badge }}">{{ complaint.priority }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="detail-meta">
+              <span class="detail-meta-label"><i class="bi bi-calendar3 me-1"></i>Submitted</span>
+              <span class="detail-meta-value">{{ complaint.created_at.strftime('%d %b %Y') }}</span>
+            </div>
+          </div>
+          {% if complaint.resolved_at %}
+          <div class="col-sm-6 col-md-3">
+            <div class="detail-meta">
+              <span class="detail-meta-label"><i class="bi bi-check-circle me-1"></i>Resolved</span>
+              <span class="detail-meta-value">{{ complaint.resolved_at.strftime('%d %b %Y') }}</span>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <h6 class="fw-semibold mb-2">Description</h6>
+        <div class="complaint-description">{{ complaint.description }}</div>
+
+        {% if complaint.attachment %}
+        <div class="mt-3">
+          <h6 class="fw-semibold mb-2"><i class="bi bi-paperclip me-1"></i>Attachment</h6>
+          <a href="{{ url_for('static', filename='uploads/' + complaint.attachment) }}"
+             target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-download me-1"></i>Download Attachment
+          </a>
+        </div>
+        {% endif %}
+
+        {% if complaint.admin_response %}
+        <div class="admin-response mt-4">
+          <h6 class="fw-semibold mb-2"><i class="bi bi-chat-left-text me-2"></i>Admin Response</h6>
+          <p class="mb-0">{{ complaint.admin_response }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline sidebar -->
+  <div class="col-lg-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white border-0 pt-3">
+        <h6 class="fw-bold mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Status Timeline</h6>
+      </div>
+      <div class="card-body">
+        {% if history %}
+        <div class="timeline">
+          {% for h in history %}
+          <div class="timeline-item">
+            <div class="timeline-dot bg-{{ 'success' if h.new_status == 'Resolved' else 'primary' }}"></div>
+            <div class="timeline-content">
+              <div class="fw-semibold small">{{ h.new_status }}</div>
+              {% if h.old_status %}
+              <div class="text-muted x-small">From: {{ h.old_status }}</div>
+              {% endif %}
+              {% if h.remarks %}
+              <div class="text-muted x-small">{{ h.remarks }}</div>
+              {% endif %}
+              <div class="text-muted x-small">{{ h.timestamp[:16] if h.timestamp else '' }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted small mb-0">No history yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
