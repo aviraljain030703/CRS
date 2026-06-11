@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: campus-grievance-hub
+    runtime: python
+    rootDir: flask-app
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 4 wsgi:application"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: FLASK_DEBUG
+        value: false
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    preDeployCommand: "python -c 'from app import create_app, db; app = create_app(\"production\"); app.app_context().push(); db.create_all()'"
+    healthCheckPath: /api/meta
+    disk:
+      name: uploads
+      mountPath: /app/app/static/uploads
+      sizeGB: 2
+
+  - type: mysql
+    name: cms-database
+    version: "8.0"
+    plan: starter
+    ipAllowList: []
+    preDeployCommand: "mysql -u root -p$MYSQL_ROOT_PASSWORD -h $DATABASE_HOST -e 'CREATE DATABASE IF NOT EXISTS cms_db;' && mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $DATABASE_HOST cms_db < /app/schema.sql || true"
+
+envVars:
+  - key: FLASK_ENV
+    scope: all
+    value: production
+  - key: SECRET_KEY
+    scope: all
+    generateValue: true
+  - key: JWT_SECRET_KEY
+    scope: all
+    generateValue: true
+  - key: SEED_DB
+    scope: all
+    value: "true"
+  - key: SESSION_COOKIE_SECURE
+    scope: all
+    value: "true"
+  - key: CORS_ORIGINS
+    scope: all
+    value: https://yourdomain.com
+  - key: LOG_LEVEL
+    scope: all
+    value: INFO
